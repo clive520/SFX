@@ -53,8 +53,6 @@ const ambientTemplate = document.querySelector("#ambientTemplate");
 const shortTemplate = document.querySelector("#shortTemplate");
 const masterVolume = document.querySelector("#masterVolume");
 const soundSwitch = document.querySelector("#soundSwitch");
-const soundSwitchLabel = document.querySelector("#soundSwitchLabel");
-const masterLabel = document.querySelector("label[for='masterVolume']");
 const audioStatus = document.querySelector("#audioStatus");
 const activeCount = document.querySelector("#activeCount");
 const canvas = document.querySelector("#visualizer");
@@ -72,8 +70,6 @@ masterVolume.addEventListener("input", () => {
 soundSwitch.addEventListener("change", async () => {
   await ensureAudio();
   audioState.muted = !soundSwitch.checked;
-  soundSwitchLabel.textContent = audioState.muted ? "已靜音" : "聲音開啟";
-  masterLabel.textContent = audioState.muted ? "音量已關" : "主音量";
   syncMasterGain();
 });
 

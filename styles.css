@@ -90,7 +90,7 @@ h1 {
 
 .master-panel {
   display: grid;
-  grid-template-columns: minmax(132px, auto) 72px minmax(120px, 1fr);
+  grid-template-columns: 54px 72px minmax(120px, 1fr);
   gap: 12px;
   align-items: center;
   min-height: 72px;
@@ -102,8 +102,7 @@ h1 {
 
 .switch {
   display: grid;
-  grid-template-columns: 54px minmax(70px, max-content);
-  gap: 10px;
+  grid-template-columns: 54px;
   align-items: center;
   min-height: 44px;
   color: var(--aqua);
@@ -150,10 +149,6 @@ h1 {
 .switch input:not(:checked) + .switch-track::after {
   left: 5px;
   background-color: #fff9f2;
-}
-
-.switch input:not(:checked) ~ .switch-text {
-  color: var(--rose);
 }
 
 .switch input:focus-visible + .switch-track {
@@ -329,7 +324,7 @@ input:focus-visible {
   }
 
   .master-panel {
-    grid-template-columns: minmax(132px, 1fr) minmax(90px, auto);
+    grid-template-columns: 54px minmax(90px, auto);
   }
 
   .master-panel label {
