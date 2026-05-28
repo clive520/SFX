@@ -58,3 +58,7 @@
 - 驗證公開網站首頁、`app.js`、`styles.css` 與 MP3 音檔均可從 GitHub Pages 回傳 HTTP 200。
 
 - 移除音效卡片 hover / focus 時浮出的說明文字，避免影響快速操作與拖曳排序。
+
+- 收集並下載 6 個 Mixkit 短音效：來回踱步、乒乓掉落、打雷聲、強勁風聲、電話鈴聲、手機鈴聲。
+- 新增 `assets/audio/short/` 保存短音效 MP3。
+- 將 6 個新音效加入短時間音效區，並更新 `CREDITS.md` 授權來源。

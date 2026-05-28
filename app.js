@@ -63,7 +63,43 @@ const shortSounds = [
   { id: "laser", name: "雷射發射", description: "快速下滑的合成器音效。", play: playLaser },
   { id: "whoosh", name: "轉場刷過", description: "短促噪音掃頻，適合畫面切換。", play: playWhoosh },
   { id: "impact", name: "低頻撞擊", description: "厚實的鼓點和尾音。", play: playImpact },
-  { id: "power", name: "能量啟動", description: "逐步升高的未來感提示音。", play: playPowerUp }
+  { id: "power", name: "能量啟動", description: "逐步升高的未來感提示音。", play: playPowerUp },
+  {
+    id: "pacing-footsteps",
+    name: "來回踱步",
+    description: "來回走路的腳步聲。",
+    play: () => playAudioHit("assets/audio/short/pacing-footsteps.mp3")
+  },
+  {
+    id: "clattering-drop",
+    name: "乒乓掉落",
+    description: "物品掉落後乒乒乓乓的聲響。",
+    play: () => playAudioHit("assets/audio/short/clattering-drop.mp3")
+  },
+  {
+    id: "thunder-rumble",
+    name: "打雷聲",
+    description: "厚重的雷聲轟隆。",
+    play: () => playAudioHit("assets/audio/short/thunder-rumble.mp3")
+  },
+  {
+    id: "strong-wind-hit",
+    name: "強勁風聲",
+    description: "風很強勁吹過的聲音。",
+    play: () => playAudioHit("assets/audio/short/strong-wind.mp3")
+  },
+  {
+    id: "telephone-ring",
+    name: "電話鈴聲",
+    description: "傳統電話鈴聲。",
+    play: () => playAudioHit("assets/audio/short/telephone-ring.mp3")
+  },
+  {
+    id: "mobile-ring",
+    name: "手機鈴聲",
+    description: "手機來電鈴聲。",
+    play: () => playAudioHit("assets/audio/short/mobile-ring.mp3")
+  }
 ];
 
 const audioState = {
@@ -481,6 +517,21 @@ function createAudioLoop(output, src) {
       disconnect: () => {}
     }
   ];
+}
+
+function playAudioHit(src) {
+  const context = audioState.context;
+  const audio = new Audio(src);
+  const source = context.createMediaElementSource(audio);
+
+  audio.preload = "auto";
+  audio.volume = 1;
+  source.connect(audioState.master);
+  audio.addEventListener("ended", () => source.disconnect(), { once: true });
+  audio.play().catch(() => {
+    audioStatus.textContent = "請再按一次播放音效";
+    source.disconnect();
+  });
 }
 
 function playTap() {
