@@ -27,5 +27,7 @@ Source license page: https://mixkit.co/license/
 | 強勁風聲 | `assets/audio/short/strong-wind.mp3` | Strong wild wind in a storm | https://mixkit.co/free-sound-effects/wind/ | Mixkit Sound Effects Free License |
 | 電話鈴聲 | `assets/audio/short/telephone-ring.mp3` | Old telephone ring | https://mixkit.co/free-sound-effects/phone/ | Mixkit Sound Effects Free License |
 | 手機鈴聲 | `assets/audio/short/mobile-ring.mp3` | Marimba ringtone | https://mixkit.co/free-sound-effects/phone/ | Mixkit Sound Effects Free License |
+| 玻璃破碎 | `assets/audio/short/glass-break.mp3` | Glass break with hammer thud | https://mixkit.co/free-sound-effects/glass/ | Mixkit Sound Effects Free License |
+| 物品落地 | `assets/audio/short/object-drop-floor.mp3` | Dropping keys in the floor | https://mixkit.co/free-sound-effects/drop/ | Mixkit Sound Effects Free License |
 
 Downloaded on 2026-05-28.

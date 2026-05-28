@@ -99,6 +99,18 @@ const shortSounds = [
     name: "手機鈴聲",
     description: "手機來電鈴聲。",
     play: () => playAudioHit("assets/audio/short/mobile-ring.mp3")
+  },
+  {
+    id: "glass-break",
+    name: "玻璃破碎",
+    description: "玻璃碎裂的聲音。",
+    play: () => playAudioHit("assets/audio/short/glass-break.mp3")
+  },
+  {
+    id: "object-drop-floor",
+    name: "物品落地",
+    description: "東西掉落在地上的聲音。",
+    play: () => playAudioHit("assets/audio/short/object-drop-floor.mp3")
   }
 ];
 

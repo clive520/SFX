@@ -73,3 +73,8 @@
 - 新增 `assets/audio/city-rain.mp3`、`assets/audio/ocean-coast.mp3`、`assets/audio/night-crickets.mp3`、`assets/audio/sci-fi-ambience.mp3`。
 - 移除不再使用的背景音合成函式，長時間背景音效目前皆使用真實 MP3 或已下載音檔。
 - 更新 `CREDITS.md` 授權來源。
+
+- 評估後續短音效擴充方向：掌聲、成功提示、錯誤提示、門鈴、敲門、倒數嗶聲、相機快門、警報、笑聲、驚訝音、爆炸、煞車聲。
+- 新增 2 個 Mixkit 短音效：玻璃破碎、物品落地。
+- 新增 `assets/audio/short/glass-break.mp3` 與 `assets/audio/short/object-drop-floor.mp3`。
+- 更新 `CREDITS.md` 授權來源。
