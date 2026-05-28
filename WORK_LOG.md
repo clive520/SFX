@@ -62,3 +62,4 @@
 - 收集並下載 6 個 Mixkit 短音效：來回踱步、乒乓掉落、打雷聲、強勁風聲、電話鈴聲、手機鈴聲。
 - 新增 `assets/audio/short/` 保存短音效 MP3。
 - 將 6 個新音效加入短時間音效區，並更新 `CREDITS.md` 授權來源。
+- 推送到 GitHub 後等待 Pages 重新部署完成，確認 6 個短音效 MP3 均可從 GitHub Pages 回傳 HTTP 200。
