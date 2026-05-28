@@ -1,0 +1,38 @@
+# Work Log
+
+## 2026-05-28
+
+- 建立 SFX Lab 純靜態網站基礎架構：`index.html`、`styles.css`、`app.js`。
+- 建立長時間背景音效與短時間音效兩大區。
+- 使用 Web Audio API 建立初版合成音效。
+- 建立主音量控制與音訊視覺化。
+- 初始化 Git repository，branch 設為 `main`。
+- 新增 `.gitignore` 與 `README.md`。
+- Commit: `86648a5 Create SFX Lab static site`
+
+- 改善主音量靜音狀態，讓狀態更明顯。
+- Commit: `f8836db Clarify master mute state`
+
+- 將主音量靜音按鈕改為滑動開關。
+- Commit: `5988c68 Replace mute button with sound switch`
+
+- 簡化主音量開關旁文字，只保留「主音量」。
+- Commit: `6d110a0 Simplify master switch label`
+
+- 新增長時間背景音效：颱風強風、快樂純音樂、悲傷純音樂、沉重純音樂。
+- Commit: `191d7f3 Add more ambient sound generators`
+
+- 改用下載到本機的 Mixkit MP3 音檔，取代不滿意的合成音樂。
+- 新增 `assets/audio/` 音檔資料夾。
+- 新增 `CREDITS.md` 記錄音檔來源與授權。
+- Commit: `c39ebfb Use downloaded ambient audio loops`
+
+- 將音效卡片改為緊湊顯示。
+- 說明文字改為 hover / focus 時浮現。
+- 新增拖曳排序功能，排序保存在 localStorage。
+- 手機版調整為兩欄緊湊顯示。
+- Commit: `f6484f1 Add compact draggable sound cards`
+
+- 新增網站計畫書 `PROJECT_PLAN.md`。
+- 新增工作日誌 `WORK_LOG.md`。
+- 確認目前尚未設定 GitHub remote，需建立 GitHub repository 後再推送。

@@ -18,3 +18,9 @@ npx serve .
 4. Source 選 `Deploy from a branch`，branch 選 `main`，資料夾選 `/root`。
 
 GitHub Pages 啟用後，網站會在 repository 顯示的 Pages 網址上線。
+
+## Project Docs
+
+- `PROJECT_PLAN.md`: 網站目標、功能方向、部署策略與後續規劃。
+- `WORK_LOG.md`: 每次功能變更與版本紀錄。
+- `CREDITS.md`: 音檔來源與授權紀錄。
