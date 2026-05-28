@@ -36,3 +36,8 @@
 - 新增網站計畫書 `PROJECT_PLAN.md`。
 - 新增工作日誌 `WORK_LOG.md`。
 - 確認目前尚未設定 GitHub remote，需建立 GitHub repository 後再推送。
+
+- 檢查 GitHub CLI 設定需求。
+- 確認此 Windows 環境已有 `winget` 與 Scoop，但尚未安裝 `gh`。
+- 確認官方建議可用 `winget install --id GitHub.cli --source winget` 安裝 GitHub CLI。
+- 下一步需安裝 `gh`，再執行 `gh auth login` 完成 GitHub 登入。
