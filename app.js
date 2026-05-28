@@ -111,6 +111,78 @@ const shortSounds = [
     name: "物品落地",
     description: "東西掉落在地上的聲音。",
     play: () => playAudioHit("assets/audio/short/object-drop-floor.mp3")
+  },
+  {
+    id: "applause",
+    name: "掌聲",
+    description: "小群眾鼓掌歡呼的聲音。",
+    play: () => playAudioHit("assets/audio/short/applause.mp3")
+  },
+  {
+    id: "success-alert",
+    name: "成功提示",
+    description: "任務完成或答對時的成功提示音。",
+    play: () => playAudioHit("assets/audio/short/success-alert.mp3")
+  },
+  {
+    id: "error-buzzer",
+    name: "錯誤提示",
+    description: "答錯、失敗或操作無效時的低音提示。",
+    play: () => playAudioHit("assets/audio/short/error-buzzer.mp3")
+  },
+  {
+    id: "doorbell",
+    name: "門鈴",
+    description: "清楚的門鈴提示聲。",
+    play: () => playAudioHit("assets/audio/short/doorbell.mp3")
+  },
+  {
+    id: "door-knock",
+    name: "敲門",
+    description: "敲擊木門的聲音。",
+    play: () => playAudioHit("assets/audio/short/door-knock.mp3")
+  },
+  {
+    id: "countdown-beep",
+    name: "倒數嗶聲",
+    description: "開始倒數或計時用的短嗶聲。",
+    play: () => playAudioHit("assets/audio/short/countdown-beep.mp3")
+  },
+  {
+    id: "camera-shutter",
+    name: "相機快門",
+    description: "拍照時的快門聲。",
+    play: () => playAudioHit("assets/audio/short/camera-shutter.mp3")
+  },
+  {
+    id: "alarm",
+    name: "警報",
+    description: "提醒注意的經典警報聲。",
+    play: () => playAudioHit("assets/audio/short/alarm.mp3")
+  },
+  {
+    id: "crowd-laugh",
+    name: "笑聲",
+    description: "群眾笑聲，適合輕鬆或趣味情境。",
+    play: () => playAudioHit("assets/audio/short/crowd-laugh.mp3")
+  },
+  {
+    id: "surprise-gasp",
+    name: "驚訝音",
+    description: "卡通式驚訝吸氣聲。",
+    play: () => playAudioHit("assets/audio/short/surprise-gasp.mp3")
+  },
+  {
+    id: "explosion-hit",
+    name: "爆炸",
+    description: "短促的爆炸撞擊聲。",
+    play: () => playAudioHit("assets/audio/short/explosion-hit.mp3")
+  },
+  {
+    id: "brake-sound",
+    name: "煞車聲",
+    description: "車輛快速掠過的急促聲，用於模擬急停效果。",
+    play: () => playAudioHit("assets/audio/short/brake-sound.mp3")
   }
 ];
 

@@ -29,5 +29,17 @@ Source license page: https://mixkit.co/license/
 | 手機鈴聲 | `assets/audio/short/mobile-ring.mp3` | Marimba ringtone | https://mixkit.co/free-sound-effects/phone/ | Mixkit Sound Effects Free License |
 | 玻璃破碎 | `assets/audio/short/glass-break.mp3` | Glass break with hammer thud | https://mixkit.co/free-sound-effects/glass/ | Mixkit Sound Effects Free License |
 | 物品落地 | `assets/audio/short/object-drop-floor.mp3` | Dropping keys in the floor | https://mixkit.co/free-sound-effects/drop/ | Mixkit Sound Effects Free License |
+| 掌聲 | `assets/audio/short/applause.mp3` | Small group cheer and applause | https://mixkit.co/free-sound-effects/applause/ | Mixkit Sound Effects Free License |
+| 成功提示 | `assets/audio/short/success-alert.mp3` | Game success alert | https://mixkit.co/free-sound-effects/success/ | Mixkit Sound Effects Free License |
+| 錯誤提示 | `assets/audio/short/error-buzzer.mp3` | Wrong answer bass buzzer | https://mixkit.co/free-sound-effects/error/ | Mixkit Sound Effects Free License |
+| 門鈴 | `assets/audio/short/doorbell.mp3` | Doorbell tone | https://mixkit.co/free-sound-effects/doorbell/ | Mixkit Sound Effects Free License |
+| 敲門 | `assets/audio/short/door-knock.mp3` | Knocking on a thick wooden door | https://mixkit.co/free-sound-effects/door/ | Mixkit Sound Effects Free License |
+| 倒數嗶聲 | `assets/audio/short/countdown-beep.mp3` | Sport start bleeps | https://mixkit.co/free-sound-effects/beep/ | Mixkit Sound Effects Free License |
+| 相機快門 | `assets/audio/short/camera-shutter.mp3` | Camera shutter click | https://mixkit.co/free-sound-effects/camera/ | Mixkit Sound Effects Free License |
+| 警報 | `assets/audio/short/alarm.mp3` | Classic alarm | https://mixkit.co/free-sound-effects/alarm/ | Mixkit Sound Effects Free License |
+| 笑聲 | `assets/audio/short/crowd-laugh.mp3` | Crowd laugh | https://mixkit.co/free-sound-effects/laugh/ | Mixkit Sound Effects Free License |
+| 驚訝音 | `assets/audio/short/surprise-gasp.mp3` | Cartoon surprise gasp | https://mixkit.co/free-sound-effects/surprise/ | Mixkit Sound Effects Free License |
+| 爆炸 | `assets/audio/short/explosion-hit.mp3` | Explosion hit | https://mixkit.co/free-sound-effects/explosion/ | Mixkit Sound Effects Free License |
+| 煞車聲 | `assets/audio/short/brake-sound.mp3` | Fast car drive by | https://mixkit.co/free-sound-effects/car/ | Mixkit Sound Effects Free License |
 
-Downloaded on 2026-05-28.
+Downloaded on 2026-05-28 and 2026-05-29.

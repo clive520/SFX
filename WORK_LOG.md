@@ -78,3 +78,8 @@
 - 新增 2 個 Mixkit 短音效：玻璃破碎、物品落地。
 - 新增 `assets/audio/short/glass-break.mp3` 與 `assets/audio/short/object-drop-floor.mp3`。
 - 更新 `CREDITS.md` 授權來源。
+
+- 補上 12 個常用短音效：掌聲、成功提示、錯誤提示、門鈴、敲門、倒數嗶聲、相機快門、警報、笑聲、驚訝音、爆炸、煞車聲。
+- 新增對應 MP3 到 `assets/audio/short/`，並加入短時間音效區。
+- 短音效仍共用最多播放 3 秒的限制，避免多個音效疊加時太混亂。
+- 更新 `CREDITS.md` 授權來源；其中煞車聲先採用目前可取得且最接近的車輛快速掠過音效。
