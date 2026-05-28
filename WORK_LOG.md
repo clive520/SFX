@@ -45,3 +45,10 @@
 - 使用者透過 `winget install --id GitHub.cli --source winget` 安裝 GitHub CLI 2.93.0。
 - 確認 `gh.exe` 安裝於 `C:\Program Files\GitHub CLI\gh.exe`。
 - 將 `C:\Program Files\GitHub CLI` 加入使用者 PATH，並確認 `gh --version` 可正常執行。
+
+- 使用者完成 `gh auth login --web --git-protocol https` GitHub 授權。
+- 確認 GitHub CLI 已登入 `clive520`，Git protocol 使用 HTTPS。
+- 使用 `gh repo create SFX --public --source=. --remote=origin --push` 建立 GitHub repository。
+- GitHub repository: https://github.com/clive520/SFX
+- 啟用 GitHub Pages，來源為 `main` branch `/` root。
+- GitHub Pages URL: https://clive520.github.io/SFX/
