@@ -8,6 +8,10 @@ Source license page: https://mixkit.co/license/
 
 | Site label | Local file | Source | Creator | License |
 | --- | --- | --- | --- | --- |
+| 城市細雨 | `assets/audio/city-rain.mp3` | Rain long loop | Mixkit | Mixkit Sound Effects Free License |
+| 低潮海岸 | `assets/audio/ocean-coast.mp3` | Close sea waves loop | Mixkit | Mixkit Sound Effects Free License |
+| 夜間蟲鳴 | `assets/audio/night-crickets.mp3` | Summer night crickets loop | Mixkit | Mixkit Sound Effects Free License |
+| 科幻環境 | `assets/audio/sci-fi-ambience.mp3` | Futuristic Sci Fi computer ambience | Mixkit | Mixkit Sound Effects Free License |
 | 颱風強風 | `assets/audio/typhoon-wind.mp3` | Blizzard cold winds | Mixkit | Mixkit Sound Effects Free License |
 | 快樂純音樂 | `assets/audio/happy-music.mp3` | Feeling Happy | Ahjay Stelino | Mixkit Stock Music Free License |
 | 悲傷純音樂 | `assets/audio/sad-music.mp3` | Silent Descent | Eugenio Mininni | Mixkit Stock Music Free License |

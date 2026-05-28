@@ -2,30 +2,30 @@ const ambientSounds = [
   {
     id: "rain",
     name: "城市細雨",
-    description: "柔和白噪音加上稀疏水滴，適合閱讀或工作。",
+    description: "真實雨聲循環，適合閱讀、工作或安靜背景。",
     volume: 46,
-    start: createRain
+    start: (output) => createAudioLoop(output, "assets/audio/city-rain.mp3")
   },
   {
     id: "ocean",
     name: "低潮海岸",
-    description: "緩慢起伏的濾波噪音，像遠方浪潮推進。",
+    description: "真實近岸海浪循環，適合放鬆與自然場景。",
     volume: 42,
-    start: createOcean
+    start: (output) => createAudioLoop(output, "assets/audio/ocean-coast.mp3")
   },
   {
     id: "night",
     name: "夜間蟲鳴",
-    description: "高頻脈衝和安靜底噪，營造戶外夜色。",
+    description: "真實夏夜蟲鳴循環，營造戶外夜色。",
     volume: 36,
-    start: createNight
+    start: (output) => createAudioLoop(output, "assets/audio/night-crickets.mp3")
   },
   {
     id: "drone",
     name: "科幻環境",
-    description: "兩層低頻振盪器形成穩定的空間底色。",
+    description: "真實科幻電腦環境音，適合未來感場景。",
     volume: 38,
-    start: createDrone
+    start: (output) => createAudioLoop(output, "assets/audio/sci-fi-ambience.mp3")
   },
   {
     id: "typhoon",
@@ -382,117 +382,6 @@ function createNoiseBuffer(seconds = 2) {
     data[i] = Math.random() * 2 - 1;
   }
   return buffer;
-}
-
-function createRain(output) {
-  const context = audioState.context;
-  const noise = context.createBufferSource();
-  const filter = context.createBiquadFilter();
-  const gain = context.createGain();
-
-  noise.buffer = createNoiseBuffer(3);
-  noise.loop = true;
-  filter.type = "highpass";
-  filter.frequency.value = 1300;
-  gain.gain.value = 0.23;
-  noise.connect(filter).connect(gain).connect(output);
-  noise.start();
-
-  const drops = [];
-  const interval = window.setInterval(() => {
-    if (!audioState.context || audioState.context.state === "closed") return;
-    const osc = context.createOscillator();
-    const dropGain = context.createGain();
-    osc.type = "triangle";
-    osc.frequency.value = 750 + Math.random() * 1300;
-    dropGain.gain.setValueAtTime(0.0001, context.currentTime);
-    dropGain.gain.exponentialRampToValueAtTime(0.04, context.currentTime + 0.012);
-    dropGain.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + 0.09);
-    osc.connect(dropGain).connect(output);
-    osc.start();
-    osc.stop(context.currentTime + 0.1);
-  }, 140);
-
-  drops.push({ stop: () => window.clearInterval(interval), disconnect: () => {} });
-  return [noise, filter, gain, ...drops];
-}
-
-function createOcean(output) {
-  const context = audioState.context;
-  const noise = context.createBufferSource();
-  const filter = context.createBiquadFilter();
-  const wave = context.createOscillator();
-  const waveGain = context.createGain();
-
-  noise.buffer = createNoiseBuffer(4);
-  noise.loop = true;
-  filter.type = "lowpass";
-  filter.frequency.value = 520;
-  wave.type = "sine";
-  wave.frequency.value = 0.09;
-  waveGain.gain.value = 330;
-  wave.connect(waveGain).connect(filter.frequency);
-  noise.connect(filter).connect(output);
-  noise.start();
-  wave.start();
-  return [noise, filter, wave, waveGain];
-}
-
-function createNight(output) {
-  const context = audioState.context;
-  const bed = context.createBufferSource();
-  const bedFilter = context.createBiquadFilter();
-  const bedGain = context.createGain();
-  const cricket = context.createOscillator();
-  const tremolo = context.createOscillator();
-  const tremoloGain = context.createGain();
-
-  bed.buffer = createNoiseBuffer(2);
-  bed.loop = true;
-  bedFilter.type = "bandpass";
-  bedFilter.frequency.value = 2800;
-  bedGain.gain.value = 0.07;
-  cricket.type = "square";
-  cricket.frequency.value = 4200;
-  tremolo.type = "square";
-  tremolo.frequency.value = 8.8;
-  tremoloGain.gain.value = 0.035;
-
-  bed.connect(bedFilter).connect(bedGain).connect(output);
-  tremolo.connect(tremoloGain.gain);
-  cricket.connect(tremoloGain).connect(output);
-  bed.start();
-  cricket.start();
-  tremolo.start();
-  return [bed, bedFilter, bedGain, cricket, tremolo, tremoloGain];
-}
-
-function createDrone(output) {
-  const context = audioState.context;
-  const root = context.createOscillator();
-  const fifth = context.createOscillator();
-  const lfo = context.createOscillator();
-  const lfoGain = context.createGain();
-  const filter = context.createBiquadFilter();
-  const gain = context.createGain();
-
-  root.type = "sine";
-  fifth.type = "triangle";
-  root.frequency.value = 86;
-  fifth.frequency.value = 129;
-  filter.type = "lowpass";
-  filter.frequency.value = 720;
-  gain.gain.value = 0.28;
-  lfo.frequency.value = 0.04;
-  lfoGain.gain.value = 220;
-  lfo.connect(lfoGain).connect(filter.frequency);
-  root.connect(filter);
-  fifth.connect(filter);
-  filter.connect(gain).connect(output);
-  root.start();
-  fifth.start();
-  lfo.start();
-  return [root, fifth, lfo, lfoGain, filter, gain];
 }
 
 function createAudioLoop(output, src) {

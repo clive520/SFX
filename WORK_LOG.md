@@ -66,3 +66,10 @@
 
 - 檢查新短音效長度，確認多個音檔超過 3 秒。
 - 將短音效播放邏輯限制為最多 3 秒，超過時自動淡出停止，避免聲音混亂。
+
+## 2026-05-29
+
+- 將剩餘 4 個長時間背景音效改成真實 Mixkit MP3：城市細雨、低潮海岸、夜間蟲鳴、科幻環境。
+- 新增 `assets/audio/city-rain.mp3`、`assets/audio/ocean-coast.mp3`、`assets/audio/night-crickets.mp3`、`assets/audio/sci-fi-ambience.mp3`。
+- 移除不再使用的背景音合成函式，長時間背景音效目前皆使用真實 MP3 或已下載音檔。
+- 更新 `CREDITS.md` 授權來源。
