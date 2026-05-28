@@ -85,6 +85,8 @@ const audioStatus = document.querySelector("#audioStatus");
 const activeCount = document.querySelector("#activeCount");
 const canvas = document.querySelector("#visualizer");
 const canvasContext = canvas.getContext("2d");
+const ambientOrderKey = "sfx-lab-ambient-order";
+const shortOrderKey = "sfx-lab-short-order";
 
 renderAmbientCards();
 renderShortCards();
@@ -102,7 +104,7 @@ soundSwitch.addEventListener("change", async () => {
 });
 
 function renderAmbientCards() {
-  ambientSounds.forEach((sound) => {
+  getOrderedSounds(ambientSounds, ambientOrderKey).forEach((sound) => {
     const node = ambientTemplate.content.cloneNode(true);
     const card = node.querySelector(".sound-card");
     const heading = node.querySelector("h3");
@@ -111,6 +113,8 @@ function renderAmbientCards() {
     const volume = node.querySelector("input");
 
     card.dataset.sound = sound.id;
+    card.dataset.description = sound.description;
+    card.tabIndex = 0;
     heading.textContent = sound.name;
     description.textContent = sound.description;
     button.textContent = "播放";
@@ -127,10 +131,11 @@ function renderAmbientCards() {
 
     ambientGrid.appendChild(node);
   });
+  setupSortableGrid(ambientGrid, ambientOrderKey);
 }
 
 function renderShortCards() {
-  shortSounds.forEach((sound) => {
+  getOrderedSounds(shortSounds, shortOrderKey).forEach((sound) => {
     const node = shortTemplate.content.cloneNode(true);
     const card = node.querySelector(".sound-card");
     const heading = node.querySelector("h3");
@@ -138,6 +143,8 @@ function renderShortCards() {
     const button = node.querySelector("button");
 
     card.dataset.sound = sound.id;
+    card.dataset.description = sound.description;
+    card.tabIndex = 0;
     heading.textContent = sound.name;
     description.textContent = sound.description;
     button.setAttribute("aria-label", `播放${sound.name}`);
@@ -149,6 +156,111 @@ function renderShortCards() {
 
     shortGrid.appendChild(node);
   });
+  setupSortableGrid(shortGrid, shortOrderKey);
+}
+
+function getOrderedSounds(sounds, storageKey) {
+  let savedOrder = [];
+  try {
+    savedOrder = JSON.parse(localStorage.getItem(storageKey) || "[]");
+  } catch (_) {
+    savedOrder = [];
+  }
+
+  const soundMap = new Map(sounds.map((sound) => [sound.id, sound]));
+  const ordered = savedOrder.map((id) => soundMap.get(id)).filter(Boolean);
+  const remaining = sounds.filter((sound) => !savedOrder.includes(sound.id));
+  return [...ordered, ...remaining];
+}
+
+function setupSortableGrid(grid, storageKey) {
+  let draggedCard = null;
+  let dragStartX = 0;
+  let dragStartY = 0;
+  let hasMoved = false;
+
+  grid.addEventListener("pointerdown", (event) => {
+    const card = event.target.closest(".sound-card");
+    if (!card || event.target.closest("button, input")) return;
+
+    draggedCard = card;
+    dragStartX = event.clientX;
+    dragStartY = event.clientY;
+    hasMoved = false;
+    card.setPointerCapture(event.pointerId);
+  });
+
+  grid.addEventListener("pointermove", (event) => {
+    if (!draggedCard) return;
+
+    const distance = Math.hypot(event.clientX - dragStartX, event.clientY - dragStartY);
+    if (distance < 6 && !hasMoved) return;
+
+    hasMoved = true;
+    draggedCard.classList.add("is-dragging");
+
+    const placement = getDragPlacement(grid, event.clientX, event.clientY);
+    if (!placement.element) {
+      grid.appendChild(draggedCard);
+      return;
+    }
+
+    grid.insertBefore(draggedCard, placement.insertAfter ? placement.element.nextSibling : placement.element);
+  });
+
+  grid.addEventListener("pointerup", (event) => {
+    if (!draggedCard) return;
+    if (draggedCard.hasPointerCapture(event.pointerId)) {
+      draggedCard.releasePointerCapture(event.pointerId);
+    }
+
+    draggedCard.classList.remove("is-dragging");
+    if (hasMoved) saveGridOrder(grid, storageKey);
+    draggedCard = null;
+    hasMoved = false;
+  });
+
+  grid.addEventListener("pointercancel", () => {
+    if (!draggedCard) return;
+    draggedCard.classList.remove("is-dragging");
+    draggedCard = null;
+    hasMoved = false;
+  });
+}
+
+function getDragPlacement(grid, x, y) {
+  const cards = [...grid.querySelectorAll(".sound-card:not(.is-dragging)")];
+
+  const closest = cards.reduce(
+    (closest, child) => {
+      const box = child.getBoundingClientRect();
+      const offset = Math.hypot(x - (box.left + box.width / 2), y - (box.top + box.height / 2));
+
+      if (offset < closest.offset) {
+        return { offset, element: child, box };
+      }
+
+      return closest;
+    },
+    { offset: Number.POSITIVE_INFINITY, element: null, box: null }
+  );
+
+  if (!closest.element) return { element: null, insertAfter: false };
+
+  const rowThreshold = closest.box.height / 2;
+  const belowCenter = y > closest.box.top + closest.box.height / 2;
+  const sameRow = Math.abs(y - (closest.box.top + closest.box.height / 2)) < rowThreshold;
+  const rightOfCenter = x > closest.box.left + closest.box.width / 2;
+
+  return {
+    element: closest.element,
+    insertAfter: belowCenter || (sameRow && rightOfCenter)
+  };
+}
+
+function saveGridOrder(grid, storageKey) {
+  const order = [...grid.querySelectorAll(".sound-card")].map((card) => card.dataset.sound);
+  localStorage.setItem(storageKey, JSON.stringify(order));
 }
 
 async function ensureAudio() {
