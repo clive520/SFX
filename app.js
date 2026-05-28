@@ -30,30 +30,30 @@ const ambientSounds = [
   {
     id: "typhoon",
     name: "颱風強風",
-    description: "厚重低頻風壓加上尖銳風切，像颱風天窗外強風。",
+    description: "真實強風音效循環，適合颱風天、暴風雨或緊張場景。",
     volume: 44,
-    start: createTyphoon
+    start: (output) => createAudioLoop(output, "assets/audio/typhoon-wind.mp3")
   },
   {
     id: "happy-music",
     name: "快樂純音樂",
-    description: "明亮大調琶音，輕快、乾淨，沒有任何人聲。",
+    description: "真實免授權背景音樂，輕快明亮，沒有任何人聲。",
     volume: 34,
-    start: createHappyMusic
+    start: (output) => createAudioLoop(output, "assets/audio/happy-music.mp3")
   },
   {
     id: "sad-music",
     name: "悲傷純音樂",
-    description: "緩慢小調旋律，柔和低沉，沒有任何人聲。",
+    description: "真實免授權背景音樂，柔和低沉，沒有任何人聲。",
     volume: 34,
-    start: createSadMusic
+    start: (output) => createAudioLoop(output, "assets/audio/sad-music.mp3")
   },
   {
     id: "heavy-music",
     name: "沉重純音樂",
-    description: "低音脈衝與暗色和聲，壓迫感較強，沒有任何人聲。",
+    description: "真實免授權背景音樂，陰暗沉重，沒有任何人聲。",
     volume: 34,
-    start: createHeavyMusic
+    start: (output) => createAudioLoop(output, "assets/audio/heavy-music.mp3")
   }
 ];
 
@@ -348,154 +348,29 @@ function createDrone(output) {
   return [root, fifth, lfo, lfoGain, filter, gain];
 }
 
-function createTyphoon(output) {
+function createAudioLoop(output, src) {
   const context = audioState.context;
-  const lowWind = context.createBufferSource();
-  const highWind = context.createBufferSource();
-  const lowFilter = context.createBiquadFilter();
-  const highFilter = context.createBiquadFilter();
-  const gustLfo = context.createOscillator();
-  const gustDepth = context.createGain();
-  const windGain = context.createGain();
+  const audio = new Audio(src);
+  const source = context.createMediaElementSource(audio);
 
-  lowWind.buffer = createNoiseBuffer(5);
-  highWind.buffer = createNoiseBuffer(5);
-  lowWind.loop = true;
-  highWind.loop = true;
-  lowFilter.type = "lowpass";
-  lowFilter.frequency.value = 650;
-  highFilter.type = "bandpass";
-  highFilter.frequency.value = 1800;
-  highFilter.Q.value = 0.9;
-  gustLfo.type = "sine";
-  gustLfo.frequency.value = 0.18;
-  gustDepth.gain.value = 0.32;
-  windGain.gain.value = 0.42;
-
-  gustLfo.connect(gustDepth).connect(windGain.gain);
-  lowWind.connect(lowFilter).connect(windGain);
-  highWind.connect(highFilter).connect(windGain);
-  windGain.connect(output);
-  lowWind.start();
-  highWind.start();
-  gustLfo.start();
-
-  const gustInterval = window.setInterval(() => {
-    const whistle = context.createOscillator();
-    const whistleGain = context.createGain();
-    const whistleFilter = context.createBiquadFilter();
-    const start = context.currentTime;
-
-    whistle.type = "sine";
-    whistle.frequency.setValueAtTime(920 + Math.random() * 420, start);
-    whistle.frequency.exponentialRampToValueAtTime(420 + Math.random() * 180, start + 0.7);
-    whistleFilter.type = "bandpass";
-    whistleFilter.frequency.value = 1200;
-    whistleFilter.Q.value = 5.5;
-    whistleGain.gain.setValueAtTime(0.0001, start);
-    whistleGain.gain.exponentialRampToValueAtTime(0.11, start + 0.08);
-    whistleGain.gain.exponentialRampToValueAtTime(0.0001, start + 0.82);
-    whistle.connect(whistleFilter).connect(whistleGain).connect(output);
-    whistle.start(start);
-    whistle.stop(start + 0.9);
-  }, 900);
+  audio.loop = true;
+  audio.preload = "auto";
+  audio.volume = 1;
+  source.connect(output);
+  audio.play().catch(() => {
+    audioStatus.textContent = "請再按一次播放音效";
+  });
 
   return [
-    lowWind,
-    highWind,
-    lowFilter,
-    highFilter,
-    gustLfo,
-    gustDepth,
-    windGain,
-    { stop: () => window.clearInterval(gustInterval), disconnect: () => {} }
-  ];
-}
-
-function createHappyMusic(output) {
-  return createMusicLoop(output, {
-    tempo: 118,
-    wave: "triangle",
-    filterFrequency: 2400,
-    masterGain: 0.28,
-    bassGain: 0.09,
-    notes: [523.25, 659.25, 783.99, 1046.5, 880, 783.99, 659.25, 783.99],
-    bass: [130.81, 196, 164.81, 196],
-    noteLength: 0.18,
-    interval: 250
-  });
-}
-
-function createSadMusic(output) {
-  return createMusicLoop(output, {
-    tempo: 76,
-    wave: "sine",
-    filterFrequency: 1200,
-    masterGain: 0.3,
-    bassGain: 0.13,
-    notes: [440, 392, 349.23, 329.63, 293.66, 329.63, 349.23, 392],
-    bass: [110, 98, 87.31, 98],
-    noteLength: 0.42,
-    interval: 520
-  });
-}
-
-function createHeavyMusic(output) {
-  return createMusicLoop(output, {
-    tempo: 64,
-    wave: "sawtooth",
-    filterFrequency: 620,
-    masterGain: 0.22,
-    bassGain: 0.23,
-    notes: [146.83, 164.81, 174.61, 130.81, 146.83, 123.47, 130.81, 110],
-    bass: [55, 55, 61.74, 49],
-    noteLength: 0.34,
-    interval: 430
-  });
-}
-
-function createMusicLoop(output, options) {
-  const context = audioState.context;
-  const groupGain = context.createGain();
-  const filter = context.createBiquadFilter();
-  const nodes = [groupGain, filter];
-  let step = 0;
-
-  groupGain.gain.value = options.masterGain;
-  filter.type = "lowpass";
-  filter.frequency.value = options.filterFrequency;
-  groupGain.connect(filter).connect(output);
-
-  const playNote = (frequency, start, duration, gainValue, wave) => {
-    const osc = context.createOscillator();
-    const gain = context.createGain();
-    osc.type = wave;
-    osc.frequency.value = frequency;
-    gain.gain.setValueAtTime(0.0001, start);
-    gain.gain.exponentialRampToValueAtTime(gainValue, start + 0.03);
-    gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
-    osc.connect(gain).connect(groupGain);
-    osc.start(start);
-    osc.stop(start + duration + 0.04);
-  };
-
-  const tick = () => {
-    const now = context.currentTime;
-    const note = options.notes[step % options.notes.length];
-    const bass = options.bass[Math.floor(step / 2) % options.bass.length];
-    playNote(note, now, options.noteLength, 0.18, options.wave);
-
-    if (step % 2 === 0) {
-      playNote(bass, now, options.noteLength * 1.9, options.bassGain, "sine");
+    source,
+    {
+      stop: () => {
+        audio.pause();
+        audio.currentTime = 0;
+      },
+      disconnect: () => {}
     }
-
-    step += 1;
-  };
-
-  tick();
-  const interval = window.setInterval(tick, options.interval);
-  nodes.push({ stop: () => window.clearInterval(interval), disconnect: () => {} });
-  return nodes;
+  ];
 }
 
 function playTap() {
