@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SFX Lab | 音效產生器</title>
+    <meta name="description" content="即時產生背景音效與短音效的 Web Audio 音效網站。">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Web Audio Soundboard</p>
+          <h1 id="page-title">SFX Lab</h1>
+          <p class="intro">按一下就產生聲音。背景音可以長時間播放，短音效適合按鈕、轉場、遊戲和影片剪輯。</p>
+        </div>
+        <div class="master-panel" aria-label="主音量控制">
+          <button class="icon-button" id="muteButton" type="button" aria-label="靜音切換" title="靜音切換">
+            <span aria-hidden="true">◐</span>
+          </button>
+          <label for="masterVolume">主音量</label>
+          <input id="masterVolume" type="range" min="0" max="100" value="72">
+        </div>
+      </section>
+
+      <section class="visualizer-band" aria-label="音訊視覺化">
+        <canvas id="visualizer" width="1200" height="240"></canvas>
+        <div class="status-row">
+          <span id="audioStatus">等待啟動音訊</span>
+          <span id="activeCount">0 個背景音播放中</span>
+        </div>
+      </section>
+
+      <div class="workspace">
+        <section class="panel" aria-labelledby="ambient-title">
+          <div class="panel-heading">
+            <p class="section-kicker">Long Ambient</p>
+            <h2 id="ambient-title">長時間的背景音效</h2>
+          </div>
+          <div class="sound-grid" id="ambientGrid"></div>
+        </section>
+
+        <section class="panel" aria-labelledby="short-title">
+          <div class="panel-heading">
+            <p class="section-kicker">Short Hits</p>
+            <h2 id="short-title">短時間的音效</h2>
+          </div>
+          <div class="sound-grid short-grid" id="shortGrid"></div>
+        </section>
+      </div>
+    </main>
+
+    <template id="ambientTemplate">
+      <article class="sound-card">
+        <div class="card-top">
+          <div>
+            <h3></h3>
+            <p></p>
+          </div>
+          <button class="play-toggle" type="button"></button>
+        </div>
+        <label class="mini-control">
+          <span>音量</span>
+          <input type="range" min="0" max="100">
+        </label>
+      </article>
+    </template>
+
+    <template id="shortTemplate">
+      <article class="sound-card compact">
+        <div>
+          <h3></h3>
+          <p></p>
+        </div>
+        <button class="trigger-button" type="button">播放</button>
+      </article>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
