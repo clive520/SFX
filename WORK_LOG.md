@@ -41,3 +41,7 @@
 - 確認此 Windows 環境已有 `winget` 與 Scoop，但尚未安裝 `gh`。
 - 確認官方建議可用 `winget install --id GitHub.cli --source winget` 安裝 GitHub CLI。
 - 下一步需安裝 `gh`，再執行 `gh auth login` 完成 GitHub 登入。
+
+- 使用者透過 `winget install --id GitHub.cli --source winget` 安裝 GitHub CLI 2.93.0。
+- 確認 `gh.exe` 安裝於 `C:\Program Files\GitHub CLI\gh.exe`。
+- 將 `C:\Program Files\GitHub CLI` 加入使用者 PATH，並確認 `gh --version` 可正常執行。
