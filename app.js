@@ -123,6 +123,7 @@ const canvas = document.querySelector("#visualizer");
 const canvasContext = canvas.getContext("2d");
 const ambientOrderKey = "sfx-lab-ambient-order";
 const shortOrderKey = "sfx-lab-short-order";
+const shortSoundMaxSeconds = 3;
 
 renderAmbientCards();
 renderShortCards();
@@ -523,15 +524,40 @@ function playAudioHit(src) {
   const context = audioState.context;
   const audio = new Audio(src);
   const source = context.createMediaElementSource(audio);
+  const gain = context.createGain();
+  let stopTimer = null;
 
   audio.preload = "auto";
   audio.volume = 1;
-  source.connect(audioState.master);
-  audio.addEventListener("ended", () => source.disconnect(), { once: true });
+  source.connect(gain).connect(audioState.master);
+  audio.addEventListener("ended", cleanup, { once: true });
   audio.play().catch(() => {
     audioStatus.textContent = "請再按一次播放音效";
-    source.disconnect();
+    cleanup();
   });
+
+  stopTimer = window.setTimeout(() => {
+    const now = context.currentTime;
+    gain.gain.setTargetAtTime(0, now, 0.035);
+    window.setTimeout(() => {
+      audio.pause();
+      cleanup();
+    }, 140);
+  }, shortSoundMaxSeconds * 1000);
+
+  function cleanup() {
+    if (stopTimer) {
+      window.clearTimeout(stopTimer);
+      stopTimer = null;
+    }
+
+    try {
+      source.disconnect();
+      gain.disconnect();
+    } catch (_) {
+      // Audio nodes can already be disconnected after a fast stop or natural end.
+    }
+  }
 }
 
 function playTap() {
