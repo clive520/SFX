@@ -56,3 +56,5 @@
 - 將工作日誌更新推送到 GitHub。
 - 等待 GitHub Pages 建置完成，狀態由 `building` / 短暫 `errored` 轉為 `built`。
 - 驗證公開網站首頁、`app.js`、`styles.css` 與 MP3 音檔均可從 GitHub Pages 回傳 HTTP 200。
+
+- 移除音效卡片 hover / focus 時浮出的說明文字，避免影響快速操作與拖曳排序。

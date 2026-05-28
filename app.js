@@ -113,7 +113,6 @@ function renderAmbientCards() {
     const volume = node.querySelector("input");
 
     card.dataset.sound = sound.id;
-    card.dataset.description = sound.description;
     card.tabIndex = 0;
     heading.textContent = sound.name;
     description.textContent = sound.description;
@@ -143,7 +142,6 @@ function renderShortCards() {
     const button = node.querySelector("button");
 
     card.dataset.sound = sound.id;
-    card.dataset.description = sound.description;
     card.tabIndex = 0;
     heading.textContent = sound.name;
     description.textContent = sound.description;

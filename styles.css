@@ -246,24 +246,6 @@ canvas {
   border-color: rgba(72, 214, 194, 0.58);
 }
 
-.sound-card:hover::after,
-.sound-card:focus-within::after {
-  position: absolute;
-  right: 10px;
-  bottom: calc(100% + 8px);
-  left: 10px;
-  z-index: 5;
-  padding: 9px 10px;
-  color: var(--ink);
-  font-size: 0.82rem;
-  line-height: 1.45;
-  content: attr(data-description);
-  background: rgba(16, 17, 18, 0.96);
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  box-shadow: var(--shadow);
-}
-
 .sound-card.is-dragging {
   opacity: 0.52;
   transform: scale(0.98);
