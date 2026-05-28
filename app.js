@@ -53,6 +53,7 @@ const ambientTemplate = document.querySelector("#ambientTemplate");
 const shortTemplate = document.querySelector("#shortTemplate");
 const masterVolume = document.querySelector("#masterVolume");
 const muteButton = document.querySelector("#muteButton");
+const masterLabel = document.querySelector("label[for='masterVolume']");
 const audioStatus = document.querySelector("#audioStatus");
 const activeCount = document.querySelector("#activeCount");
 const canvas = document.querySelector("#visualizer");
@@ -71,7 +72,11 @@ muteButton.addEventListener("click", async () => {
   await ensureAudio();
   audioState.muted = !audioState.muted;
   muteButton.classList.toggle("is-active", audioState.muted);
-  muteButton.setAttribute("aria-label", audioState.muted ? "取消靜音" : "靜音切換");
+  muteButton.querySelector("span").textContent = audioState.muted ? "靜" : "聲";
+  const label = audioState.muted ? "取消靜音，目前靜音" : "靜音切換，目前聲音開啟";
+  muteButton.setAttribute("aria-label", label);
+  muteButton.setAttribute("title", label);
+  masterLabel.textContent = audioState.muted ? "已靜音" : "主音量";
   syncMasterGain();
 });
 

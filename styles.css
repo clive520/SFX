@@ -106,8 +106,24 @@ h1 {
   width: 44px;
   height: 44px;
   color: var(--ink);
-  background: var(--panel-2);
+  background-color: var(--panel-2);
   border: 1px solid var(--line);
+  border-radius: 6px;
+  font-weight: 900;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.icon-button.is-active {
+  color: #fff9f2;
+  background-color: var(--rose);
+  border-color: rgba(255, 107, 122, 0.95);
+  box-shadow: 0 0 0 3px rgba(255, 107, 122, 0.22);
+  transform: translateY(-1px);
+}
+
+.icon-button.is-active + label {
+  color: var(--rose);
+  font-weight: 800;
 }
 
 .visualizer-band {
