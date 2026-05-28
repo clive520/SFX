@@ -16,9 +16,11 @@
           <p class="intro">按一下就產生聲音。背景音可以長時間播放，短音效適合按鈕、轉場、遊戲和影片剪輯。</p>
         </div>
         <div class="master-panel" aria-label="主音量控制">
-          <button class="icon-button" id="muteButton" type="button" aria-label="靜音切換，目前聲音開啟" title="靜音切換，目前聲音開啟">
-            <span aria-hidden="true">聲</span>
-          </button>
+          <label class="switch" for="soundSwitch" title="聲音開關">
+            <input id="soundSwitch" type="checkbox" role="switch" aria-label="聲音開關" checked>
+            <span class="switch-track" aria-hidden="true"></span>
+            <span class="switch-text" id="soundSwitchLabel">聲音開啟</span>
+          </label>
           <label for="masterVolume">主音量</label>
           <input id="masterVolume" type="range" min="0" max="100" value="72">
         </div>

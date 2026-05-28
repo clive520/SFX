@@ -52,7 +52,8 @@ const shortGrid = document.querySelector("#shortGrid");
 const ambientTemplate = document.querySelector("#ambientTemplate");
 const shortTemplate = document.querySelector("#shortTemplate");
 const masterVolume = document.querySelector("#masterVolume");
-const muteButton = document.querySelector("#muteButton");
+const soundSwitch = document.querySelector("#soundSwitch");
+const soundSwitchLabel = document.querySelector("#soundSwitchLabel");
 const masterLabel = document.querySelector("label[for='masterVolume']");
 const audioStatus = document.querySelector("#audioStatus");
 const activeCount = document.querySelector("#activeCount");
@@ -68,15 +69,11 @@ masterVolume.addEventListener("input", () => {
   syncMasterGain();
 });
 
-muteButton.addEventListener("click", async () => {
+soundSwitch.addEventListener("change", async () => {
   await ensureAudio();
-  audioState.muted = !audioState.muted;
-  muteButton.classList.toggle("is-active", audioState.muted);
-  muteButton.querySelector("span").textContent = audioState.muted ? "靜" : "聲";
-  const label = audioState.muted ? "取消靜音，目前靜音" : "靜音切換，目前聲音開啟";
-  muteButton.setAttribute("aria-label", label);
-  muteButton.setAttribute("title", label);
-  masterLabel.textContent = audioState.muted ? "已靜音" : "主音量";
+  audioState.muted = !soundSwitch.checked;
+  soundSwitchLabel.textContent = audioState.muted ? "已靜音" : "聲音開啟";
+  masterLabel.textContent = audioState.muted ? "音量已關" : "主音量";
   syncMasterGain();
 });
 

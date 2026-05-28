@@ -90,7 +90,7 @@ h1 {
 
 .master-panel {
   display: grid;
-  grid-template-columns: 48px 72px minmax(120px, 1fr);
+  grid-template-columns: minmax(132px, auto) 72px minmax(120px, 1fr);
   gap: 12px;
   align-items: center;
   min-height: 72px;
@@ -100,30 +100,65 @@ h1 {
   box-shadow: var(--shadow);
 }
 
-.icon-button {
+.switch {
   display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  color: var(--ink);
-  background-color: var(--panel-2);
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  font-weight: 900;
-  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+  grid-template-columns: 54px minmax(70px, max-content);
+  gap: 10px;
+  align-items: center;
+  min-height: 44px;
+  color: var(--aqua);
+  font-weight: 800;
+  cursor: pointer;
 }
 
-.icon-button.is-active {
-  color: #fff9f2;
+.switch input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.switch-track {
+  position: relative;
+  width: 54px;
+  height: 30px;
+  background-color: var(--aqua);
+  border: 1px solid rgba(72, 214, 194, 0.86);
+  border-radius: 999px;
+  box-shadow: 0 0 0 3px rgba(72, 214, 194, 0.16);
+  transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.switch-track::after {
+  position: absolute;
+  top: 4px;
+  left: 27px;
+  width: 20px;
+  height: 20px;
+  content: "";
+  background-color: #08110f;
+  border-radius: 50%;
+  transition: left 160ms ease, background-color 160ms ease;
+}
+
+.switch input:not(:checked) + .switch-track {
   background-color: var(--rose);
   border-color: rgba(255, 107, 122, 0.95);
   box-shadow: 0 0 0 3px rgba(255, 107, 122, 0.22);
-  transform: translateY(-1px);
 }
 
-.icon-button.is-active + label {
+.switch input:not(:checked) + .switch-track::after {
+  left: 5px;
+  background-color: #fff9f2;
+}
+
+.switch input:not(:checked) ~ .switch-text {
   color: var(--rose);
-  font-weight: 800;
+}
+
+.switch input:focus-visible + .switch-track {
+  outline: 3px solid rgba(245, 240, 232, 0.72);
+  outline-offset: 3px;
 }
 
 .visualizer-band {
@@ -262,7 +297,6 @@ input[type="range"] {
   accent-color: var(--aqua);
 }
 
-button:focus-visible,
 input:focus-visible {
   outline: 3px solid rgba(72, 214, 194, 0.72);
   outline-offset: 3px;
@@ -295,11 +329,15 @@ input:focus-visible {
   }
 
   .master-panel {
-    grid-template-columns: 48px 1fr;
+    grid-template-columns: minmax(132px, 1fr) minmax(90px, auto);
   }
 
   .master-panel label {
     grid-column: 2;
+  }
+
+  .master-panel .switch {
+    grid-column: 1;
   }
 
   .master-panel input {
