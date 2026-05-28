@@ -52,3 +52,7 @@
 - GitHub repository: https://github.com/clive520/SFX
 - 啟用 GitHub Pages，來源為 `main` branch `/` root。
 - GitHub Pages URL: https://clive520.github.io/SFX/
+
+- 將工作日誌更新推送到 GitHub。
+- 等待 GitHub Pages 建置完成，狀態由 `building` / 短暫 `errored` 轉為 `built`。
+- 驗證公開網站首頁、`app.js`、`styles.css` 與 MP3 音檔均可從 GitHub Pages 回傳 HTTP 200。
