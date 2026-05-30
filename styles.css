@@ -228,7 +228,7 @@ canvas {
   justify-content: space-between;
   gap: 10px;
   min-height: 104px;
-  padding: 12px;
+  padding: 12px 42px 12px 12px;
   background: rgba(24, 26, 29, 0.88);
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -236,6 +236,10 @@ canvas {
   touch-action: none;
   user-select: none;
   transition: border-color 160ms ease, box-shadow 160ms ease, opacity 160ms ease, transform 160ms ease;
+}
+
+.sound-grid.is-sorting {
+  cursor: grabbing;
 }
 
 .sound-card.compact {
@@ -247,9 +251,48 @@ canvas {
 }
 
 .sound-card.is-dragging {
-  opacity: 0.52;
-  transform: scale(0.98);
+  position: fixed;
+  z-index: 20;
+  opacity: 0.94;
+  transform: rotate(1deg) scale(1.03);
   cursor: grabbing;
+  pointer-events: none;
+  box-shadow: 0 22px 42px rgba(0, 0, 0, 0.42), 0 0 0 2px rgba(72, 214, 194, 0.48);
+}
+
+.drag-handle {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  color: rgba(232, 238, 233, 0.58);
+  font-size: 1rem;
+  font-weight: 900;
+  line-height: 1;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+}
+
+.sound-card:hover .drag-handle,
+.sound-card.is-dragging .drag-handle {
+  color: var(--aqua);
+  border-color: rgba(72, 214, 194, 0.44);
+}
+
+.drop-placeholder {
+  min-height: 90px;
+  background: rgba(72, 214, 194, 0.1);
+  border: 2px dashed rgba(72, 214, 194, 0.88);
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 0 24px rgba(72, 214, 194, 0.14);
+}
+
+.sound-grid:not(.short-grid) .drop-placeholder {
+  min-height: 104px;
 }
 
 .card-top {

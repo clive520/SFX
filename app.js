@@ -294,17 +294,23 @@ function getOrderedSounds(sounds, storageKey) {
 
 function setupSortableGrid(grid, storageKey) {
   let draggedCard = null;
+  let placeholder = null;
   let dragStartX = 0;
   let dragStartY = 0;
+  let dragOffsetX = 0;
+  let dragOffsetY = 0;
   let hasMoved = false;
 
   grid.addEventListener("pointerdown", (event) => {
     const card = event.target.closest(".sound-card");
     if (!card || event.target.closest("button, input")) return;
 
+    const box = card.getBoundingClientRect();
     draggedCard = card;
     dragStartX = event.clientX;
     dragStartY = event.clientY;
+    dragOffsetX = event.clientX - box.left;
+    dragOffsetY = event.clientY - box.top;
     hasMoved = false;
     card.setPointerCapture(event.pointerId);
   });
@@ -316,15 +322,19 @@ function setupSortableGrid(grid, storageKey) {
     if (distance < 6 && !hasMoved) return;
 
     hasMoved = true;
-    draggedCard.classList.add("is-dragging");
+    if (!placeholder) {
+      beginCardDrag(grid, draggedCard);
+    }
+
+    updateDraggedCardPosition(draggedCard, event.clientX, event.clientY, dragOffsetX, dragOffsetY);
 
     const placement = getDragPlacement(grid, event.clientX, event.clientY);
     if (!placement.element) {
-      grid.appendChild(draggedCard);
+      grid.appendChild(placeholder);
       return;
     }
 
-    grid.insertBefore(draggedCard, placement.insertAfter ? placement.element.nextSibling : placement.element);
+    grid.insertBefore(placeholder, placement.insertAfter ? placement.element.nextSibling : placement.element);
   });
 
   grid.addEventListener("pointerup", (event) => {
@@ -333,18 +343,58 @@ function setupSortableGrid(grid, storageKey) {
       draggedCard.releasePointerCapture(event.pointerId);
     }
 
-    draggedCard.classList.remove("is-dragging");
+    if (placeholder) {
+      grid.insertBefore(draggedCard, placeholder);
+    }
+
+    finishCardDrag(grid, draggedCard, placeholder);
     if (hasMoved) saveGridOrder(grid, storageKey);
     draggedCard = null;
+    placeholder = null;
     hasMoved = false;
   });
 
   grid.addEventListener("pointercancel", () => {
     if (!draggedCard) return;
-    draggedCard.classList.remove("is-dragging");
+    finishCardDrag(grid, draggedCard, placeholder);
     draggedCard = null;
+    placeholder = null;
     hasMoved = false;
   });
+
+  function beginCardDrag(grid, card) {
+    const box = card.getBoundingClientRect();
+    placeholder = document.createElement("div");
+    placeholder.className = "drop-placeholder";
+    placeholder.style.width = `${box.width}px`;
+    placeholder.style.height = `${box.height}px`;
+    grid.insertBefore(placeholder, card);
+
+    card.classList.add("is-dragging");
+    card.style.width = `${box.width}px`;
+    card.style.height = `${box.height}px`;
+    updateDraggedCardPosition(card, dragStartX, dragStartY, dragOffsetX, dragOffsetY);
+    grid.classList.add("is-sorting");
+  }
+
+  function finishCardDrag(grid, card, placeholder) {
+    card.classList.remove("is-dragging");
+    card.style.removeProperty("width");
+    card.style.removeProperty("height");
+    card.style.removeProperty("left");
+    card.style.removeProperty("top");
+
+    if (placeholder) {
+      placeholder.remove();
+    }
+
+    grid.classList.remove("is-sorting");
+  }
+}
+
+function updateDraggedCardPosition(card, x, y, offsetX, offsetY) {
+  card.style.left = `${x - offsetX}px`;
+  card.style.top = `${y - offsetY}px`;
 }
 
 function getDragPlacement(grid, x, y) {
